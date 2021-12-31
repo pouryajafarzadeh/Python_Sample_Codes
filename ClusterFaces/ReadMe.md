@@ -9,4 +9,4 @@ In this code, we want to cluster a bunch of unlabeled faces into clusters. So, t
 ##### Attention
 The cosine value of the angle between two vectors is always between [-1,1], but, in this project, the value was scaled between [0,1] for normalization:
 
-<img src="https://render.githubusercontent.com/render/math?math=\Large \cos (\theta) = \frac{(\cos \theta +1)}{2}">
+<img src="https://render.githubusercontent.com/render/math?math=\Large \cos (\theta) = \frac{(\cos \theta + 1)}{2}">
