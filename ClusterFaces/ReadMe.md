@@ -8,5 +8,11 @@ In this code, we want to cluster a bunch of unlabeled faces into clusters. So, t
 
 #### <span style="color:red"> Attention </span>
 The cosine value of the angle between two vectors is always between [-1,1], but, in this project, the value was scaled between [0,1] for normalization:
-<span style="color:orange;">Word up</span>
+
+```diff
+- red
+salalm
+```
+
+
 ![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}) 
