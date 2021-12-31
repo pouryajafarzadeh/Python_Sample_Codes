@@ -12,4 +12,4 @@ The cosine value of the angle between two vectors is always between [-1,1], but,
 
 
 
-![\cos (\theta) = \frac{(\cos \theta +1)}{2}](https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}) 
+![\cos (\theta) = \frac{(\cos \theta +1)}{2}](https://latex.codecogs.com/svg.latex?\Large&space;\cos (\theta) = \frac{(\cos \theta +1)}{2}) 
