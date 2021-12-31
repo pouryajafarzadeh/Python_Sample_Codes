@@ -39,15 +39,19 @@ class ClusterFace():
         
         while True:
             new_centroids = []
+            new_centroids_data = {}
             for i in centroids:
                 in_bandwidth = []
+                in_bandwidth_idx = []
                 centroid = centroids[i]
-                for featureset in data:
+                for idx, featureset in enumerate(data):
                     if self.cosine_similarity(featureset,centroid) < self.radius:
                         in_bandwidth.append(featureset)
+                        in_bandwidth_idx.append(idx)
 
                 new_centroid = np.average(in_bandwidth,axis=0)
                 new_centroids.append(tuple(new_centroid))
+                new_centroids_data[i] = in_bandwidth_idx
 
             uniques = sorted(list(set(new_centroids)))
 
@@ -68,12 +72,13 @@ class ClusterFace():
             if optimized:
                 break
 
-        self.centroids = centroids
+        self.centroids          = centroids
+        self.new_centroids_data = new_centroids_data
 
 
 
 
 
 if __name__ == "__main__":
-    clsuerFace = ClusterFace(dir_address='/home/pourya/src/Python_Sample_Codes/ClusterFaces/')
+    clsuerFace = ClusterFace()
     print (clsuerFace.images_name)
