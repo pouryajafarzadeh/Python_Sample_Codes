@@ -7,4 +7,8 @@ In this code, we want to cluster a bunch of unlabeled faces into clusters. So, t
 - Finally, for comparing two faces, the cosine-similarity was used, and two faces whose cosine-similarity is more than 0.8 (or for verification is less than 0.2) belong to the same classes.
 ### <span style="color:red"> Attention </span>
 The cosin
+
+
+
+sdf
 <img src="https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" title="\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" />
