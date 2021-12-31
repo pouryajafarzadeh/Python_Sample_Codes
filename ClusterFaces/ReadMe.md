@@ -6,13 +6,10 @@ In this code, we want to cluster a bunch of unlabeled faces into clusters. So, t
 - In order to demonstrate a face in the feature vector, a trained network like mobile-net that embeds a face into a 1D feature vector can be used. In this code [facenet-pytorch](https://github.com/timesler/facenet-pytorch) was utilized for face embedding. It converts the input image face to a 512 dimensions vector.
 - Finally, for comparing two faces, the cosine-similarity was used, and two faces whose cosine-similarity is more than 0.8 (or for verification is less than 0.2) belong to the same classes.
 
-#### <span style="color:red"> Attention </span>
+#### <span style="color:B94529"> Attention </span>
 The cosine value of the angle between two vectors is always between [-1,1], but, in this project, the value was scaled between [0,1] for normalization:
 
-```diff
-- red
-salalm
-```
+
 
 
 ![\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}](https://latex.codecogs.com/svg.latex?\Large&space;x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}) 
