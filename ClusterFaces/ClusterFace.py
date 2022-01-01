@@ -1,8 +1,11 @@
 import glob
 import os
 import numpy as np
+import cv2
 from numpy import dot
 from numpy.linalg import norm
+from facenet_pytorch import MTCNN, InceptionResnetV1
+from PIL import Image
 
 
 
@@ -10,10 +13,14 @@ from numpy.linalg import norm
 class ClusterFace():
     def __init__(self, dir_address='./', radius=0.2 ):
         self.extensions  = ['jpg','png','jpeg']
+        self.resnet = InceptionResnetV1(pretrained='vggface2').eval()
+        self.mtcnn = MTCNN(image_size=160)
         self.dir_address = dir_address
         self.radius      = radius
         self.images_address = self.get_image_names(self.dir_address)
-        self.embeddings  = self.get_embedding_faces(self.images_address)
+        self.data = self.get_embedding_face(self.images_address)
+    
+
 
     def get_image_names(self, address):
         files = []
@@ -24,15 +31,26 @@ class ClusterFace():
 
 
     def cosine_similarity(self,vec1,vec2):
-        cos_sim = dot(vec1, vec2)/(norm(vec1)*norm(vec2))
+        cos_sim = 1- (dot(vec1, vec2)/(norm(vec1)*norm(vec2)))
         return cos_sim
-    def get_embedding_faces(self, images_address):
-        pass
+   
+    def get_embedding_face(self, images_address:str):
+        data = []
+        for image_address in images_address:
+            img1 = cv2.imread(image_address)
+            img1 = cv2.cvtColor(img1, cv2.COLOR_RGB2BGR)
+            img_cropped1 = self.mtcnn(img1)
+            img_embedding1 = self.resnet(img_cropped1.unsqueeze(0))
+            a = img_embedding1[0].cpu().detach().numpy()
+            data.append(img_embedding1[0].cpu().detach().numpy() )
+            # data.append(list(a))
+        return data
 
 
 
-    def fit(self, data):
+    def fit(self):
         centroids = {}
+        data = self.data
 
         for i in range(len(data)):
             centroids[i] = data[i]
@@ -74,11 +92,25 @@ class ClusterFace():
 
         self.centroids          = centroids
         self.new_centroids_data = new_centroids_data
+    
+    def show_results(self):
+        print (f'we have {len(self.centroids)} persons in the images as follow:')
+        for idx in range (len(self.centroids)):
+            print ( f'for person {idx}:')
+            for j in range (len((self.new_centroids_data[idx]))):
+                print (self.images_address[self.new_centroids_data[idx][j]])
+
+
 
 
 
 
 
 if __name__ == "__main__":
-    clsuerFace = ClusterFace()
-    print (clsuerFace.images_name)
+    CF = ClusterFace()
+    CF.fit()
+    CF.show_results()
+
+
+
+    
