@@ -3,9 +3,11 @@ import os
 import numpy as np
 import cv2
 from numpy import dot
+from numpy.lib.shape_base import column_stack
 from numpy.linalg import norm
 from facenet_pytorch import MTCNN, InceptionResnetV1
 from PIL import Image
+import matplotlib.pyplot as plt
 
 
 
@@ -92,7 +94,10 @@ class ClusterFace():
 
         self.centroids          = centroids
         self.new_centroids_data = new_centroids_data
-    
+
+    def get_max_class(self):
+        return max(len(v) for k,v in self.new_centroids_data.items())
+
     def show_results(self):
         print (f'we have {len(self.centroids)} persons in the images as follow:')
         for idx in range (len(self.centroids)):
@@ -100,6 +105,18 @@ class ClusterFace():
             for j in range (len((self.new_centroids_data[idx]))):
                 print (self.images_address[self.new_centroids_data[idx][j]])
 
+    def draw_results(self):
+        fig = plt.figure()
+        rows = len(self.centroids)
+        print(self.get_max_class())
+        columns = self.get_max_class()
+
+        f, axarr = plt.subplots(rows,columns)
+        for idx in range (rows):
+            for j in range (len((self.new_centroids_data[idx]))):
+                img = cv2.imread(self.images_address[self.new_centroids_data[idx][j]])
+                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+                axarr[idx, j].imshow(img)
 
 
 
@@ -107,9 +124,10 @@ class ClusterFace():
 
 
 if __name__ == "__main__":
-    CF = ClusterFace()
+    CF = ClusterFace("./imgs/")
     CF.fit()
     CF.show_results()
+    CF.draw_results()
 
 
 
