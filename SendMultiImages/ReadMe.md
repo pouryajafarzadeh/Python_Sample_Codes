@@ -1,0 +1,2 @@
+#### Send and receive multi-files with FastApi
+In this mini-project we run a rest-API service that receives multi-files from a client, then, it can process the files. The API is implemented by the [FastApi](https://github.com/tiangolo/fastapi) package, which is one of the most popular packages in python.
